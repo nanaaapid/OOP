@@ -1,10 +1,9 @@
 import java.awt.*;
-import java.awt.event.*;
 
 public class Paddle {
     int x, y;
     int yVelocity = 0;
-    int speed = 5;
+    int speed = 6;
 
     int width = 20;
     int height = 100;
@@ -23,31 +22,16 @@ public class Paddle {
         y += yVelocity;
     }
 
-    public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_W:
-                yVelocity = -speed;
-                break;
-            case KeyEvent.VK_S:
-                yVelocity = speed;
-                break;
-            case KeyEvent.VK_UP:
-                yVelocity = -speed;
-                break;
-            case KeyEvent.VK_DOWN:
-                yVelocity = speed;
-                break;
-        }
+    public void setYVelocity(int v) {
+        this.yVelocity = v;
     }
 
-    public void keyReleased(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_W:
-            case KeyEvent.VK_S:
-            case KeyEvent.VK_UP:
-            case KeyEvent.VK_DOWN:
-                yVelocity = 0;
-                break;
-        }
+    public void clampY(int minY, int maxY) {
+        if (y < minY) y = minY;
+        if (y + height > maxY) y = maxY - height;
+    }
+
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, width, height);
     }
 }
