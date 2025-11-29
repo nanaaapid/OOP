@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class Ball {
     int x, y;
-    int xVelocity = 3;
+    int xVelocity = 4;
     int yVelocity = 3;
     int diameter = 30;
 
@@ -20,9 +20,17 @@ public class Ball {
         x += xVelocity;
         y += yVelocity;
 
-        // Pantulan atas/bawah
-        if (y <= 0 || y >= GamePanel.GAME_HEIGHT - diameter) {
+        // bounce top/bottom
+        if (y <= 0) {
+            y = 0;
+            yVelocity = -yVelocity;
+        } else if (y >= GamePanel.GAME_HEIGHT - diameter) {
+            y = GamePanel.GAME_HEIGHT - diameter;
             yVelocity = -yVelocity;
         }
+    }
+
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, diameter, diameter);
     }
 }
